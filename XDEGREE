@@ -1,0 +1,131 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+echo "# Xiamarin-Degree-Converter" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/UliMtz/Xiamarin-Degree-Converter.git
+git push -u origin master
+
+namespace xdegree
+{
+    public partial class Form1 : Form
+    {
+        private TextBox objTextBox = null;
+        public TextBox Temp = null;
+        public Form1()
+        {
+
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            DialogResult bienvenidos;
+            bienvenidos = MessageBox.Show("Iniciar conversor de grados", "Bienvenidos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+        }
+
+        private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            objTextBox = (TextBox)sender;
+            textBox1.Focus();
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            objTextBox = (TextBox)sender;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(" ¿Desea Salir? ", " Salir ", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                this.Close();
+
+            }
+            else
+            {
+                textBox1.Focus();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            double grados;
+            if (objTextBox == textBox1)
+            {
+                grados = Convert.ToDouble(textBox1.Text);
+
+                if ((grados < -100.00) || (grados > 60.00))
+                {
+                    MessageBox.Show("Error", "Introducir datos de 60°C a -100°C");
+                }
+                else
+                {
+                    grados = Convert.ToDouble(textBox1.Text) * 9.0 / 5.0 + 32.0;
+                    textBox2.Text = string.Format("{0:F2}", grados);
+                    if (grados >= -148 && grados <= -90.4)
+                    {
+                        MessageBox.Show("Se recomienda el uso de abrigos, guantes y bufandas", "El clima es extremadamente frio");
+                    }
+                    if (grados >= -90.4 && grados <= -32.8)
+                    {
+                        MessageBox.Show("Se recomienda el uso de Chamarras", "El clima es frio ");
+                    }
+                    if (grados >= -32.8 && grados <= 24.8)
+                    {
+                        MessageBox.Show("Se recomienda usar Ropa casual", "El clima es templado");
+                    }
+                    if (grados >= 24.8 && grados <= 82.4)
+                    {
+                        MessageBox.Show("Se recomienda el uso de vestimenta ligera", "El clima esta caliente");
+                    }
+                    if (grados >= 82.4 && grados <= 140)
+                    {
+                        MessageBox.Show("Se recomienda mantenerse hidratado, mantengase Hidratado ", "El clima es extramadamente caliente");
+                    }
+                }
+                if (objTextBox == textBox2)
+                {
+                    grados = Convert.ToDouble(textBox2.Text);
+
+                    if (grados > 140 || grados < -148)
+                    {
+                        MessageBox.Show("Error", "Introducir datos de 140°F a -100°F");
+                    }
+                    else
+                    {
+                        grados = (Convert.ToDouble(textBox2.Text) - 32.0) * 5.0 / 9.0;
+                        textBox1.Text = string.Format("{0:F2}", grados);
+                        if (grados >= -100 && grados <= -68)
+                        {
+                            MessageBox.Show("El clima es extremadamente frio", "Se recomienda el uso de abrigos, guantes y bufandas ");
+                        }
+                        if (grados >= -68 && grados <= -36)
+                        {
+                            MessageBox.Show("El clima es frio ", "Se recomienda el uso de Chamarras");
+                        }
+                        if (grados >= -36 && grados <= -4)
+                        {
+                            MessageBox.Show("El clima es templado", "Se recomienda usar Ropa casual");
+                        }
+                        if (grados >= -4 && grados <= 28)
+                        {
+                            MessageBox.Show("el clima esta caliente", "Se recomienda el uso de vestimenta ligera");
+                        }
+                        if (grados >= 28 && grados <= 60)
+                        {
+                            MessageBox.Show("el clima es extramadamente caliente ", "Se recomienda mantenerse hidratado, mantengase Hidratado");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
